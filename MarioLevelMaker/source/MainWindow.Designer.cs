@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ObjectPane = new System.Windows.Forms.FlowLayoutPanel();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,20 +41,30 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editorWindow1 = new MarioLevelMaker.source.EditorWindow();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.LevelPane = new System.Windows.Forms.Panel();
+            this.ObjectPane.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // ObjectPane
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.ObjectPane.BackColor = System.Drawing.SystemColors.Control;
+            this.ObjectPane.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ObjectPane.Controls.Add(this.splitter1);
+            this.ObjectPane.Location = new System.Drawing.Point(1280, 24);
+            this.ObjectPane.Margin = new System.Windows.Forms.Padding(0);
+            this.ObjectPane.Name = "ObjectPane";
+            this.ObjectPane.Size = new System.Drawing.Size(320, 768);
+            this.ObjectPane.TabIndex = 2;
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(3, 3);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 0);
+            this.splitter1.TabIndex = 0;
+            this.splitter1.TabStop = false;
             // 
             // fileToolStripMenuItem
             // 
@@ -73,15 +84,16 @@
             this.newToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileNewIcon;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.newToolStripMenuItem.Text = "New...";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileOpenIcon;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.openToolStripMenuItem.Text = "Open...";
             // 
             // saveToolStripMenuItem
@@ -89,7 +101,7 @@
             this.saveToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileSaveIcon;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
@@ -97,21 +109,23 @@
             this.saveAsToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileSaveAsIcon;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Shift+S";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
             this.takeScreenshotToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+T";
-            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot";
+            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -138,25 +152,43 @@
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.redoToolStripMenuItem.Text = "Redo";
             // 
-            // editorWindow1
+            // menuStrip1
             // 
-            this.editorWindow1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(187)))), ((int)(((byte)(236)))));
-            this.editorWindow1.Location = new System.Drawing.Point(0, 152);
-            this.editorWindow1.Margin = new System.Windows.Forms.Padding(0);
-            this.editorWindow1.Name = "editorWindow1";
-            this.editorWindow1.Size = new System.Drawing.Size(1280, 600);
-            this.editorWindow1.TabIndex = 0;
+            this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1600, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // LevelPane
+            // 
+            this.LevelPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(187)))), ((int)(((byte)(236)))));
+            this.LevelPane.Location = new System.Drawing.Point(0, 24);
+            this.LevelPane.Margin = new System.Windows.Forms.Padding(0);
+            this.LevelPane.Name = "LevelPane";
+            this.LevelPane.Size = new System.Drawing.Size(1280, 768);
+            this.LevelPane.TabIndex = 3;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 682);
-            this.Controls.Add(this.editorWindow1);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1600, 785);
+            this.Controls.Add(this.LevelPane);
+            this.Controls.Add(this.ObjectPane);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "MarioLevelMaker";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.ObjectPane.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -165,18 +197,19 @@
         }
 
         #endregion
-
-        private EditorWindow editorWindow1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.FlowLayoutPanel ObjectPane;
+        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem takeScreenshotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Panel LevelPane;
     }
 }

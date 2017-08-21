@@ -14,6 +14,7 @@ namespace MarioLevelMaker.source
         // constant level size
         public const int levelWidth = 20;
         public const int levelHeight = 12;
+        private string filePath = "";
 
         // array of ints for storing tile ids
         public int[] tileIDs = new int[levelWidth * levelHeight];
@@ -31,10 +32,22 @@ namespace MarioLevelMaker.source
         }
 
         // serializes the level
-        public void Serialize()
-        {
+        public void Serialize(bool saveAs)
+        {   
+            if(saveAs || filePath == "")
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "Mario Levels (*.xml)|*.xml";
+                dialog.FilterIndex = 1;
+                dialog.RestoreDirectory = true;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = dialog.FileName;
+                }
+            }
+
             XmlSerializer mySerializer = new XmlSerializer(typeof(Level));
-            StreamWriter streamWriter = new StreamWriter("level.xml");
+            StreamWriter streamWriter = new StreamWriter(filePath);
             mySerializer.Serialize(streamWriter, this);
             streamWriter.Close();
         }
@@ -53,7 +66,21 @@ namespace MarioLevelMaker.source
                 {
                     Level deserializedLevel = (Level)mySerializer.Deserialize(stream);
                     this.tileIDs = deserializedLevel.tileIDs;
+                    this.filePath = dialog.FileName;
                 }
+            }
+        }
+
+        // allow access to fileName without making it public
+        public string FilePath
+        {
+            get
+            {
+                return filePath;
+            }
+            set
+            {
+                filePath = value;
             }
         }
     }

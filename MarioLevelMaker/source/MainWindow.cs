@@ -45,16 +45,27 @@ namespace MarioLevelMaker.source
             }
         }
 
-        // reset grid tiles
+        // create new level
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             level = new Level();
-            updatePixelBoxes();
+            updateLevel();
         }
         
         // updates all pixel boxes to match the level
-        private void updatePixelBoxes()
+        // displays the level file path in the title bar
+        private void updateLevel()
         {
+            // update title bar with file name
+            if(level.FilePath != "")
+            {
+                this.Text = "MarioLevelMaker - " + level.FilePath;
+            }
+            else
+            {
+                this.Text = "MarioLevelMaker";
+            }
+
             for (int x = 0; x < Level.levelWidth; x++)
             {
                 for (int y = 0; y < Level.levelHeight; y++)
@@ -76,6 +87,9 @@ namespace MarioLevelMaker.source
         // save a screenshot
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // update level just in case
+            updateLevel();
+
             Bitmap screenshot = new Bitmap(Level.levelWidth * 64, Level.levelHeight * 64);
             this.LevelPane.DrawToBitmap(screenshot, this.LevelPane.ClientRectangle);
             SaveFileDialog dialog = new SaveFileDialog();
@@ -95,14 +109,22 @@ namespace MarioLevelMaker.source
         // save level
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            level.Serialize();
+            level.Serialize(false);
+            updateLevel();
         }
 
         // open level
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             level.Deserialize();
-            updatePixelBoxes();
+            updateLevel();
+        }
+
+        // save level as
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            level.Serialize(true);
+            updateLevel();
         }
 
         Level level = new Level();

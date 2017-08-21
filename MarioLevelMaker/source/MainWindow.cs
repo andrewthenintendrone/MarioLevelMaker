@@ -118,21 +118,6 @@ namespace MarioLevelMaker.source
             updateLevel();
         }
 
-        // draw gridLines on the level pane
-        public void LevelPane_Paint(object sender, PaintEventArgs e)
-        {
-            Pen myPen = new Pen(Color.FromArgb(255, 50, 97, 168), 2);
-            for (int y = 0; y < Level.LevelHeight * 64; y += 64)
-            {
-                e.Graphics.DrawLine(myPen, new Point(0, y), new Point(Level.LevelWidth * 64, y));
-            }
-            for (int x = 0; x < Level.LevelWidth * 64; x += 64)
-            {
-                e.Graphics.DrawLine(myPen, new Point(x, 0), new Point(x, Level.LevelHeight * 64));
-            }
-            base.OnPaint(e);
-        }
-
         // handle keyboard shortcuts
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

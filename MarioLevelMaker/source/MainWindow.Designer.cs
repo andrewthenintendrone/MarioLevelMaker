@@ -174,7 +174,6 @@
             this.LevelPane.Name = "LevelPane";
             this.LevelPane.Size = new System.Drawing.Size(1280, 768);
             this.LevelPane.TabIndex = 3;
-            this.LevelPane.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelPane_Paint);
             // 
             // MainWindow
             // 

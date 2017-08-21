@@ -133,6 +133,42 @@ namespace MarioLevelMaker.source
             base.OnPaint(e);
         }
 
+        // handle keyboard shortcuts
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // CTRL + N = new
+            if (keyData == (Keys.Control | Keys.N))
+            {
+                newToolStripMenuItem_Click(this, EventArgs.Empty);
+                return true;
+            }
+            // CTRL + O = Open
+            if (keyData == (Keys.Control | Keys.O))
+            {
+                openToolStripMenuItem_Click(this, EventArgs.Empty);
+                return true;
+            }
+            // CTRL + S = Save
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                saveToolStripMenuItem_Click(this, EventArgs.Empty);
+                return true;
+            }
+            // CTRL + Shift + S = Save As
+            if (keyData == (Keys.Control | Keys.Shift | Keys.S))
+            {
+                saveAsToolStripMenuItem_Click(this, EventArgs.Empty);
+                return true;
+            }
+            // CTRL + T = Take Screenshot
+            if (keyData == (Keys.Control | Keys.T))
+            {
+                takeScreenshotToolStripMenuItem_Click(this, EventArgs.Empty);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         Level level = new Level();
         PixelBox[] shelf = new PixelBox[PixelBox.TileNames.Length];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };

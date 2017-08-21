@@ -50,7 +50,6 @@
             // ObjectPane
             // 
             this.ObjectPane.BackColor = System.Drawing.SystemColors.Control;
-            this.ObjectPane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ObjectPane.Controls.Add(this.splitter1);
             this.ObjectPane.Location = new System.Drawing.Point(1280, 24);
             this.ObjectPane.Margin = new System.Windows.Forms.Padding(0);
@@ -170,19 +169,19 @@
             // LevelPane
             // 
             this.LevelPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(187)))), ((int)(((byte)(236)))));
-            this.LevelPane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LevelPane.Location = new System.Drawing.Point(0, 24);
             this.LevelPane.Margin = new System.Windows.Forms.Padding(0);
             this.LevelPane.Name = "LevelPane";
             this.LevelPane.Size = new System.Drawing.Size(1280, 768);
             this.LevelPane.TabIndex = 3;
+            this.LevelPane.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelPane_Paint);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1600, 785);
+            this.ClientSize = new System.Drawing.Size(1600, 792);
             this.Controls.Add(this.LevelPane);
             this.Controls.Add(this.ObjectPane);
             this.Controls.Add(this.menuStrip1);

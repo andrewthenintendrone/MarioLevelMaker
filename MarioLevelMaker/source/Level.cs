@@ -11,22 +11,24 @@ namespace MarioLevelMaker.source
 {
     public class Level
     {
-        // constant level size
-        public const int levelWidth = 20;
-        public const int levelHeight = 12;
-        private string filePath = "";
-
-        // array of ints for storing tile ids
-        public int[] tileIDs = new int[levelWidth * levelHeight];
-
         // default constructor sets all tile ids to 0
         public Level()
         {
+            tiles = new PixelBox[levelWidth * levelHeight];
+
             for (int x = 0; x < levelWidth; x++)
             {
                 for (int y = 0; y < levelHeight; y++)
                 {
-                    tileIDs[y * levelWidth + x] = 0;
+                    PixelBox newTile = new PixelBox(x, y);
+                    ((Control)newTile).AllowDrop = true;
+                    newTile.MouseDown += new MouseEventHandler(newTile.PixelBox_MouseDown);
+                    newTile.DragEnter += new DragEventHandler(newTile.PixelBox_DragEnter);
+                    newTile.DragLeave += new EventHandler(newTile.PixelBox_DragLeave);
+                    newTile.DragDrop += new DragEventHandler(newTile.PixelBox_DragDrop);
+                    newTile.tileID = 0;
+                    newTile.updateImage();
+                    tiles[y * levelWidth + x] = newTile;
                 }
             }
         }
@@ -44,18 +46,28 @@ namespace MarioLevelMaker.source
                 {
                     filePath = dialog.FileName;
                 }
+                else
+                {
+                    return;
+                }
             }
 
-            XmlSerializer mySerializer = new XmlSerializer(typeof(Level));
+            int[] tileIDs = new int[tiles.Length];
+            for(int i = 0; i < tiles.Length; i++)
+            {
+                tileIDs[i] = tiles[i].tileID;
+            }
+
+            XmlSerializer mySerializer = new XmlSerializer(typeof(int[]));
             StreamWriter streamWriter = new StreamWriter(filePath);
-            mySerializer.Serialize(streamWriter, this);
+            mySerializer.Serialize(streamWriter, tileIDs);
             streamWriter.Close();
         }
 
         // deserializes the level
         public void Deserialize()
         {
-            XmlSerializer mySerializer = new XmlSerializer(typeof(Level));
+            XmlSerializer mySerializer = new XmlSerializer(typeof(int[]));
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Mario Levels (*.xml)|*.xml";
             dialog.FilterIndex = 1;
@@ -64,24 +76,41 @@ namespace MarioLevelMaker.source
             {
                 using (Stream stream = dialog.OpenFile())
                 {
-                    Level deserializedLevel = (Level)mySerializer.Deserialize(stream);
-                    this.tileIDs = deserializedLevel.tileIDs;
-                    this.filePath = dialog.FileName;
+                    int[] deserializedTileIDs = new int[tiles.Length];
+                    deserializedTileIDs = (int[])mySerializer.Deserialize(stream);
+                    for(int i = 0; i < tiles.Length; i++)
+                    {
+                        tiles[i].tileID = deserializedTileIDs[i];
+                        tiles[i].updateImage();
+                        this.filePath = dialog.FileName;
+                    }
                 }
             }
         }
 
-        // allow access to fileName without making it public
-        public string FilePath
+        public static int LevelWidth
         {
             get
             {
-                return filePath;
-            }
-            set
-            {
-                filePath = value;
+                return levelWidth;
             }
         }
+
+        public static int LevelHeight
+        {
+            get
+            {
+                return levelHeight;
+            }
+        }
+
+        // allow access to fileName without making it public
+
+        public string filePath = "";
+
+        // constant level size
+        private const int levelWidth = 20;
+        private const int levelHeight = 12;
+        public PixelBox[] tiles;
     }
 }

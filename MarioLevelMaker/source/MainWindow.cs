@@ -23,58 +23,49 @@ namespace MarioLevelMaker.source
         // set up window
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            // set up grid
-            for (int x = 0; x < Level.levelWidth; x++)
+            foreach(PixelBox currentTile in level.tiles)
             {
-                for (int y = 0; y < Level.levelHeight; y++)
-                {
-                    PixelBox newTile = new PixelBox(x, y);
-                    newTile.Image = (Image)MarioLevelMaker.Properties.Resources.ResourceManager.GetObject(objectNames[level.tileIDs[y * Level.levelWidth + x]]);
-                    this.LevelPane.Controls.Add(newTile);
-                }
+                this.LevelPane.Controls.Add(currentTile);
             }
+
             // set up shelf
-            for (int i = 0; i < objectNames.Length; i++)
+            for (int i = 0; i < PixelBox.TileNames.Length; i++)
             {
                 PixelBox newPixelBox = new PixelBox();
-                newPixelBox.Name = "shelfTile_" + objectNames[i];
+                newPixelBox.MouseDown += new MouseEventHandler(newPixelBox.PixelBox_MouseDown);
+                newPixelBox.Name = "shelfTile_" + PixelBox.TileNames[i];
                 newPixelBox.Size = new Size(64, 64);
                 newPixelBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                newPixelBox.Image = (Image)Properties.Resources.ResourceManager.GetObject(objectNames[i]);
+                newPixelBox.tileID = i;
+                newPixelBox.updateImage();
                 this.ObjectPane.Controls.Add(newPixelBox);
-            }
+            };
         }
 
         // create new level
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            level = new Level();
+            level.filePath = "";
+            foreach(PixelBox currentPixelBox in level.tiles)
+            {
+                currentPixelBox.tileID = 0;
+                currentPixelBox.updateImage();
+            }
             updateLevel();
         }
         
         // updates all pixel boxes to match the level
         // displays the level file path in the title bar
-        private void updateLevel()
+        public void updateLevel()
         {
             // update title bar with file name
-            if(level.FilePath != "")
+            if(level.filePath != "")
             {
-                this.Text = "MarioLevelMaker - " + level.FilePath;
+                this.Text = "MarioLevelMaker - " + level.filePath;
             }
             else
             {
                 this.Text = "MarioLevelMaker";
-            }
-
-            for (int x = 0; x < Level.levelWidth; x++)
-            {
-                for (int y = 0; y < Level.levelHeight; y++)
-                {
-                    foreach (PixelBox currentPixelBox in this.LevelPane.Controls.Find("gridSquare_" + x.ToString() + "_" + y.ToString(), false))
-                    {
-                        currentPixelBox.Image = (Image)Properties.Resources.ResourceManager.GetObject(objectNames[level.tileIDs[y * Level.levelWidth + x]]);
-                    }
-                }
             }
         }
 
@@ -90,7 +81,7 @@ namespace MarioLevelMaker.source
             // update level just in case
             updateLevel();
 
-            Bitmap screenshot = new Bitmap(Level.levelWidth * 64, Level.levelHeight * 64);
+            Bitmap screenshot = new Bitmap(Level.LevelWidth * 64, Level.LevelHeight * 64);
             this.LevelPane.DrawToBitmap(screenshot, this.LevelPane.ClientRectangle);
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "BMP (*.bmp)|*.bmp|GIF (*.gif)|*.gif|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png|All files (*.*)|*.*";
@@ -127,8 +118,23 @@ namespace MarioLevelMaker.source
             updateLevel();
         }
 
+        // draw gridLines on the level pane
+        public void LevelPane_Paint(object sender, PaintEventArgs e)
+        {
+            Pen myPen = new Pen(Color.FromArgb(255, 50, 97, 168), 2);
+            for (int y = 0; y < Level.LevelHeight * 64; y += 64)
+            {
+                e.Graphics.DrawLine(myPen, new Point(0, y), new Point(Level.LevelWidth * 64, y));
+            }
+            for (int x = 0; x < Level.LevelWidth * 64; x += 64)
+            {
+                e.Graphics.DrawLine(myPen, new Point(x, 0), new Point(x, Level.LevelHeight * 64));
+            }
+            base.OnPaint(e);
+        }
+
         Level level = new Level();
+        PixelBox[] shelf = new PixelBox[PixelBox.TileNames.Length];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
-        string[] objectNames = new string[] { "empty", "brick", "brick_question", "brick_solid", "brick_music", "brick_empty", "coin" };
     }
 }

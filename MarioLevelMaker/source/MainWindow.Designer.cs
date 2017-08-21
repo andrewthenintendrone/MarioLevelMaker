@@ -50,7 +50,7 @@
             // ObjectPane
             // 
             this.ObjectPane.BackColor = System.Drawing.SystemColors.Control;
-            this.ObjectPane.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ObjectPane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ObjectPane.Controls.Add(this.splitter1);
             this.ObjectPane.Location = new System.Drawing.Point(1280, 24);
             this.ObjectPane.Margin = new System.Windows.Forms.Padding(0);
@@ -84,7 +84,7 @@
             this.newToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileNewIcon;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.newToolStripMenuItem.Text = "New...";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -93,37 +93,39 @@
             this.openToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileOpenIcon;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.openToolStripMenuItem.Text = "Open...";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileSaveIcon;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Image = global::MarioLevelMaker.Properties.Resources.MenuFileSaveAsIcon;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Shift+S";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
             this.takeScreenshotToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+T";
-            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot";
             this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -167,6 +169,7 @@
             // LevelPane
             // 
             this.LevelPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(187)))), ((int)(((byte)(236)))));
+            this.LevelPane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LevelPane.Location = new System.Drawing.Point(0, 24);
             this.LevelPane.Margin = new System.Windows.Forms.Padding(0);
             this.LevelPane.Name = "LevelPane";
@@ -182,7 +185,7 @@
             this.Controls.Add(this.LevelPane);
             this.Controls.Add(this.ObjectPane);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";

@@ -48,8 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\MarioLevelMakerIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -124,25 +123,28 @@
     <None Include="Resources\MarioLevelMakerIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MenuFileNewIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MenuFileOpenIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MenuFileSaveIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MenuFileSaveAsIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MenuEditUndoIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MenuEditRedoIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\mariotiles_final.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuNew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuRedo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuSave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuSaveAs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuTakeScreenshot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MenuUndo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

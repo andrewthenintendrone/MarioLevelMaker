@@ -23,6 +23,7 @@ namespace MarioLevelMaker.source
         // set up window
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            this.ActiveControl = this.ObjectPane;
             foreach(PixelBox currentTile in level.tiles)
             {
                 this.LevelPane.Controls.Add(currentTile);
@@ -140,7 +141,7 @@ namespace MarioLevelMaker.source
         // adjust to size
         private void MainWindow_Resize(object sender, EventArgs e)
         {
-            this.ObjectPane.Size = new Size(this.ClientSize.Width - 1280, this.ClientSize.Height);
+            this.ObjectPane.Size = new Size(this.ClientSize.Width - 1280, 768);
         }
 
         // draw gridLines on the level pane

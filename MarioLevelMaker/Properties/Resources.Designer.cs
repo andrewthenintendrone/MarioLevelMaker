@@ -73,9 +73,9 @@ namespace MarioLevelMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MenuEditRedoIcon {
+        internal static System.Drawing.Bitmap MenuNew {
             get {
-                object obj = ResourceManager.GetObject("MenuEditRedoIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("MenuNew", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace MarioLevelMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MenuEditUndoIcon {
+        internal static System.Drawing.Bitmap MenuOpen {
             get {
-                object obj = ResourceManager.GetObject("MenuEditUndoIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("MenuOpen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace MarioLevelMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MenuFileNewIcon {
+        internal static System.Drawing.Bitmap MenuRedo {
             get {
-                object obj = ResourceManager.GetObject("MenuFileNewIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("MenuRedo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace MarioLevelMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MenuFileOpenIcon {
+        internal static System.Drawing.Bitmap MenuSave {
             get {
-                object obj = ResourceManager.GetObject("MenuFileOpenIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("MenuSave", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace MarioLevelMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MenuFileSaveAsIcon {
+        internal static System.Drawing.Bitmap MenuSaveAs {
             get {
-                object obj = ResourceManager.GetObject("MenuFileSaveAsIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("MenuSaveAs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,19 @@ namespace MarioLevelMaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MenuFileSaveIcon {
+        internal static System.Drawing.Bitmap MenuTakeScreenshot {
             get {
-                object obj = ResourceManager.GetObject("MenuFileSaveIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("MenuTakeScreenshot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MenuUndo {
+            get {
+                object obj = ResourceManager.GetObject("MenuUndo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

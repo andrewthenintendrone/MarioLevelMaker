@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="source\Action.cs" />
+    <Compile Include="source\ImageTiler.cs" />
     <Compile Include="source\Level.cs" />
     <Compile Include="source\MainWindow.cs">
       <SubType>Form</SubType>
@@ -141,100 +142,7 @@
     <None Include="Resources\MenuEditRedoIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\empty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_empty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_music.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_question.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_solid.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\coin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_falling.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_floor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_ice.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_invisible.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\brick_pow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cloud.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_ball.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_bomb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_fish.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_ghost.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_goomba.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_helmet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_mucher.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_spike.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\enemy_threespike.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pipe_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pipe_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pipe_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pipe_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\spikes.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\spring.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\luigi.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\luigi_jump.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mario.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mario_jump.png" />
+    <None Include="Resources\mariotiles_final.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

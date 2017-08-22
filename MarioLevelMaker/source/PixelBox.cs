@@ -25,7 +25,6 @@ namespace MarioLevelMaker.source
             this.Size = new Size(64, 64);
             this.Location = new Point(x * 64, y * 64);
             this.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Image = (Image)MarioLevelMaker.Properties.Resources.ResourceManager.GetObject(tileNames[tileID]);
         }
 
         public void PixelBox_MouseDown(object sender, MouseEventArgs e)
@@ -104,19 +103,10 @@ namespace MarioLevelMaker.source
 
         public void updateImage()
         {
-            this.Image = (Image)Properties.Resources.ResourceManager.GetObject(tileNames[this.tileID]);
+            this.Image = level.tileGraphics[tileID];
             Refresh();
         }
 
-        private static string[] tileNames = new string[] { "empty", "brick", "brick_empty", "brick_falling", "brick_floor", "brick_ice", "brick_invisible", "brick_music", "brick_pow", "brick_question", "brick_solid", "cloud", "coin", "enemy_ball", "enemy_bomb", "enemy_fish", "enemy_ghost", "enemy_goomba", "enemy_helmet", "enemy_mucher", "enemy_spike", "enemy_threespike", "pipe_1", "pipe_2", "pipe_3", "pipe_4", "spikes", "spring", "mario", "mario_jump", "luigi", "luigi_jump" };
         public Level level;
-
-        public static string[] TileNames
-        {
-            get
-            {
-                return tileNames;
-            }
-        }
     }
 }

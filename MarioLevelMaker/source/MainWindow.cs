@@ -29,11 +29,12 @@ namespace MarioLevelMaker.source
             }
 
             // set up shelf
-            for (int i = 0; i < PixelBox.TileNames.Length; i++)
+            for (int i = 0; i < this.level.tileGraphics.Count; i++)
             {
                 PixelBox newPixelBox = new PixelBox();
                 newPixelBox.MouseDown += new MouseEventHandler(newPixelBox.PixelBox_MouseDown);
-                newPixelBox.Name = "shelfTile_" + PixelBox.TileNames[i];
+                newPixelBox.level = this.level;
+                newPixelBox.Name = "shelfTile_" + i.ToString();
                 newPixelBox.Size = new Size(64, 64);
                 newPixelBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 newPixelBox.tileID = i;
@@ -133,7 +134,7 @@ namespace MarioLevelMaker.source
         }
 
         Level level = new Level();
-        PixelBox[] shelf = new PixelBox[PixelBox.TileNames.Length];
+        PixelBox[] shelf = new PixelBox[98];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
 
         // adjust to size

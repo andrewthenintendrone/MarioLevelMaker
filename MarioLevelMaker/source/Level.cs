@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MarioLevelMaker.source
 {
@@ -14,6 +15,17 @@ namespace MarioLevelMaker.source
         // default constructor sets all tile ids to 0
         public Level()
         {
+            // split spritesheet into graphics
+            Bitmap blankBitmap = new Bitmap(64, 64);
+            tileGraphics.Add(blankBitmap);
+            for(int y = 0; y < 8; y++)
+            {
+                for (int x = 0; x < 16; x++)
+                {
+                    tileGraphics.Add(ImageTiler.tileFromSpriteSheet(x, y));
+                }
+            }
+
             tiles = new PixelBox[levelWidth * levelHeight];
 
             for (int x = 0; x < levelWidth; x++)
@@ -27,8 +39,8 @@ namespace MarioLevelMaker.source
                     newTile.DragLeave += new EventHandler(newTile.PixelBox_DragLeave);
                     newTile.DragDrop += new DragEventHandler(newTile.PixelBox_DragDrop);
                     newTile.tileID = 0;
-                    newTile.updateImage();
                     newTile.level = this;
+                    newTile.updateImage();
                     tiles[y * levelWidth + x] = newTile;
                 }
             }
@@ -142,6 +154,7 @@ namespace MarioLevelMaker.source
         // constant level size
         private const int levelWidth = 20;
         private const int levelHeight = 12;
+        public List<Bitmap> tileGraphics = new List<Bitmap>();
         public PixelBox[] tiles;
         public int queuePos = -1;
         public List<Action> actionQueue = new List<Action>();

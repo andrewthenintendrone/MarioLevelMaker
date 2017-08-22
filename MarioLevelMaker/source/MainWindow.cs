@@ -175,6 +175,12 @@ namespace MarioLevelMaker.source
                 redoToolStripMenuItem_Click(this, EventArgs.Empty);
                 return true;
             }
+            // ESC = Exit
+            if (keyData == (Keys.Escape))
+            {
+                Application.Exit();
+                return true;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

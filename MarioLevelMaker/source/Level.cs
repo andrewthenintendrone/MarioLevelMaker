@@ -120,13 +120,13 @@ namespace MarioLevelMaker.source
         // redoes a change to the level
         public void RedoAction()
         {
+            actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].currentState;
+            actionQueue[queuePos].pixelBox.updateImage();
             queuePos++;
             if (queuePos > actionQueue.Count - 1)
             {
                 queuePos = actionQueue.Count - 1;
             }
-            actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].currentState;
-            actionQueue[queuePos].pixelBox.updateImage();
         }
 
         public string filePath = "";

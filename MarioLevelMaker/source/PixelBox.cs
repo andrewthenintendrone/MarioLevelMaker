@@ -59,7 +59,13 @@ namespace MarioLevelMaker.source
 
         public void PixelBox_DragDrop(object sender, DragEventArgs e)
         {
+            if (level.queuePos < level.actionQueue.Count - 1)
+            {
+                level.actionQueue.RemoveRange(level.queuePos + 1, level.actionQueue.Count - level.queuePos - 1);
+            }
             this.tileID = (int)e.Data.GetData(typeof(int));
+            level.actionQueue.Add(new Action(this, this.tempID, this.tileID));
+            level.queuePos++;
             this.tempID = this.tileID;
             updateImage();
         }
@@ -77,6 +83,7 @@ namespace MarioLevelMaker.source
         }
 
         private static string[] tileNames = new string[] { "empty", "brick", "brick_empty", "brick_falling", "brick_floor", "brick_ice", "brick_invisible", "brick_music", "brick_pow", "brick_question", "brick_solid", "cloud", "coin", "enemy_ball", "enemy_bomb", "enemy_fish", "enemy_ghost", "enemy_goomba", "enemy_helmet", "enemy_mucher", "enemy_spike", "enemy_threespike", "pipe_1", "pipe_2", "pipe_3", "pipe_4", "spikes", "spring", "mario", "mario_jump", "luigi", "luigi_jump" };
+        public Level level;
 
         public static string[] TileNames
         {

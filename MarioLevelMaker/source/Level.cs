@@ -28,6 +28,7 @@ namespace MarioLevelMaker.source
                     newTile.DragDrop += new DragEventHandler(newTile.PixelBox_DragDrop);
                     newTile.tileID = 0;
                     newTile.updateImage();
+                    newTile.level = this;
                     tiles[y * levelWidth + x] = newTile;
                 }
             }
@@ -104,7 +105,17 @@ namespace MarioLevelMaker.source
             }
         }
 
-        // allow access to fileName without making it public
+        // undoes a change to the level
+        public void UndoAction()
+        {
+            actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].previousState;
+            actionQueue[queuePos].pixelBox.updateImage();
+            queuePos--;
+            if (queuePos < 0)
+            {
+                queuePos = 0;
+            }
+        }
 
         public string filePath = "";
 
@@ -112,5 +123,7 @@ namespace MarioLevelMaker.source
         private const int levelWidth = 20;
         private const int levelHeight = 12;
         public PixelBox[] tiles;
+        public int queuePos = -1;
+        public List<Action> actionQueue = new List<Action>();
     }
 }

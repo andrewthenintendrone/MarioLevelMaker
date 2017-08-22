@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="source\Action.cs" />
     <Compile Include="source\Level.cs" />
     <Compile Include="source\MainWindow.cs">
       <SubType>Form</SubType>

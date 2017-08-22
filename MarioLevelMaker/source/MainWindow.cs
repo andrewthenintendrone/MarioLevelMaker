@@ -118,6 +118,12 @@ namespace MarioLevelMaker.source
             updateLevel();
         }
 
+        // undo
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.level.UndoAction();
+        }
+
         // handle keyboard shortcuts
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -149,6 +155,12 @@ namespace MarioLevelMaker.source
             if (keyData == (Keys.Control | Keys.T))
             {
                 takeScreenshotToolStripMenuItem_Click(this, EventArgs.Empty);
+                return true;
+            }
+            // CTRL + Z = Undo
+            if (keyData == (Keys.Control | Keys.Z))
+            {
+                undoToolStripMenuItem_Click(this, EventArgs.Empty);
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);

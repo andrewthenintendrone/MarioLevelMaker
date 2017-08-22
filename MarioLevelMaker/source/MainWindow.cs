@@ -13,26 +13,31 @@ using System.Xml.Serialization;
 
 namespace MarioLevelMaker.source
 {
+    // Main Window class
     public partial class MainWindow : Form
     {
+        // constructor
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        // set up window
+        // set up
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            this.ActiveControl = this.ObjectPane;
-            foreach(PixelBox currentTile in level.tiles)
+            // set the object pane as the active control to enable scrolling
+            this.ActiveControl = this.TileShelf;
+
+
+            foreach(Tile currentTile in level.tiles)
             {
                 this.LevelPane.Controls.Add(currentTile);
             }
 
-            // set up shelf
+            // Add one of each tile to the tile shelf
             for (int i = 0; i < this.level.tileGraphics.Count; i++)
             {
-                PixelBox newPixelBox = new PixelBox();
+                Tile newPixelBox = new Tile();
                 newPixelBox.MouseDown += new MouseEventHandler(newPixelBox.PixelBox_MouseDown);
                 newPixelBox.level = this.level;
                 newPixelBox.Name = "shelfTile_" + i.ToString();
@@ -40,7 +45,7 @@ namespace MarioLevelMaker.source
                 newPixelBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 newPixelBox.tileID = i;
                 newPixelBox.updateImage();
-                this.ObjectPane.Controls.Add(newPixelBox);
+                this.TileShelf.Controls.Add(newPixelBox);
             };
         }
 
@@ -48,7 +53,7 @@ namespace MarioLevelMaker.source
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             level.filePath = "";
-            foreach(PixelBox currentPixelBox in level.tiles)
+            foreach(Tile currentPixelBox in level.tiles)
             {
                 currentPixelBox.tileID = 0;
                 currentPixelBox.updateImage();
@@ -135,13 +140,13 @@ namespace MarioLevelMaker.source
         }
 
         Level level = new Level();
-        PixelBox[] shelf = new PixelBox[98];
+        Tile[] shelf = new Tile[98];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
 
         // adjust to size
         private void MainWindow_Resize(object sender, EventArgs e)
         {
-            this.ObjectPane.Size = new Size(this.ClientSize.Width - 1280, 768);
+            this.TileShelf.Size = new Size(this.ClientSize.Width - 1280, 768);
         }
 
         // draw gridLines on the level pane
@@ -162,7 +167,7 @@ namespace MarioLevelMaker.source
         // toggle grid display
         private void displayGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach(PixelBox currentTile in this.level.tiles)
+            foreach(Tile currentTile in this.level.tiles)
             {
                 currentTile.toggleGrid();
             }

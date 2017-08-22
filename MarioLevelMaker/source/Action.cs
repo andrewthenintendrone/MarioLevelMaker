@@ -8,14 +8,14 @@ namespace MarioLevelMaker.source
 {
     public class Action
     {
-        public Action(PixelBox newPixelBox, int newPreviousState, int newCurrentState)
+        public Action(Tile newPixelBox, int newPreviousState, int newCurrentState)
         {
             pixelBox = newPixelBox;
             previousState = newPreviousState;
             currentState = newCurrentState;
         }
 
-        public PixelBox pixelBox;
+        public Tile pixelBox;
         public int previousState;
         public int currentState;
     }

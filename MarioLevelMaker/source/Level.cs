@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -26,13 +27,13 @@ namespace MarioLevelMaker.source
                 }
             }
 
-            tiles = new PixelBox[levelWidth * levelHeight];
+            tiles = new Tile[levelWidth * levelHeight];
 
             for (int x = 0; x < levelWidth; x++)
             {
                 for (int y = 0; y < levelHeight; y++)
                 {
-                    PixelBox newTile = new PixelBox(x, y);
+                    Tile newTile = new Tile(x, y);
                     ((Control)newTile).AllowDrop = true;
                     newTile.MouseDown += new MouseEventHandler(newTile.PixelBox_MouseDown);
                     newTile.DragEnter += new DragEventHandler(newTile.PixelBox_DragEnter);
@@ -52,37 +53,43 @@ namespace MarioLevelMaker.source
             if(saveAs || filePath == "")
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = "Mario Levels (*.xml)|*.xml";
+                dialog.Filter = "Mario Level Maker Levels (*.mlm)|*.mlm|Mario Level Maker xml Levels (*.xml)|*.xml";
                 dialog.FilterIndex = 1;
                 dialog.RestoreDirectory = true;
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    filePath = dialog.FileName;
+                    using (Stream stream = dialog.OpenFile())
+                    {
+                        int[] tileIDs = new int[tiles.Length];
+                        for (int i = 0; i < tiles.Length; i++)
+                        {
+                            tileIDs[i] = tiles[i].tileID;
+                        }
+                        if(dialog.FilterIndex == 1)
+                        {
+                            BinaryFormatter binaryFormatter = new BinaryFormatter();
+                            binaryFormatter.Serialize(stream, tileIDs);
+                        }
+                        else if(dialog.FilterIndex == 2)
+                        {
+                            XmlSerializer xmlSerializer = new XmlSerializer(typeof(int[]));
+                            xmlSerializer.Serialize(stream, tileIDs);
+                        }
+                        stream.Close();
+                    }
                 }
                 else
                 {
                     return;
                 }
             }
-
-            int[] tileIDs = new int[tiles.Length];
-            for(int i = 0; i < tiles.Length; i++)
-            {
-                tileIDs[i] = tiles[i].tileID;
-            }
-
-            XmlSerializer mySerializer = new XmlSerializer(typeof(int[]));
-            StreamWriter streamWriter = new StreamWriter(filePath);
-            mySerializer.Serialize(streamWriter, tileIDs);
-            streamWriter.Close();
         }
 
         // deserializes the level
         public void Deserialize()
         {
-            XmlSerializer mySerializer = new XmlSerializer(typeof(int[]));
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Mario Levels (*.xml)|*.xml";
+            dialog.Filter = "Mario Level Maker Levels (*.mlm)|*.mlm|Mario Level Maker xml Levels (*.xml)|*.xml";
             dialog.FilterIndex = 1;
             dialog.RestoreDirectory = true;
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -90,8 +97,18 @@ namespace MarioLevelMaker.source
                 using (Stream stream = dialog.OpenFile())
                 {
                     int[] deserializedTileIDs = new int[tiles.Length];
-                    deserializedTileIDs = (int[])mySerializer.Deserialize(stream);
                     this.filePath = dialog.FileName;
+                    if (dialog.FilterIndex == 1)
+                    {
+                        BinaryFormatter binaryFormatter = new BinaryFormatter();
+                        deserializedTileIDs = (int[])binaryFormatter.Deserialize(stream);
+                    }
+                    else if(dialog.FilterIndex == 2)
+                    {
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(int[]));
+                        deserializedTileIDs = (int[])xmlSerializer.Deserialize(stream);
+                    }
+                    stream.Close();
                     for (int i = 0; i < tiles.Length; i++)
                     {
                         tiles[i].tileID = deserializedTileIDs[i];
@@ -99,6 +116,7 @@ namespace MarioLevelMaker.source
                     }
                     this.actionQueue.Clear();
                     this.queuePos = -1;
+                    stream.Close();
                 }
             }
         }
@@ -155,7 +173,7 @@ namespace MarioLevelMaker.source
         private const int levelWidth = 20;
         private const int levelHeight = 12;
         public List<Bitmap> tileGraphics = new List<Bitmap>();
-        public PixelBox[] tiles;
+        public Tile[] tiles;
         public int queuePos = -1;
         public List<Action> actionQueue = new List<Action>();
     }

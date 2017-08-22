@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.ObjectPane = new System.Windows.Forms.FlowLayoutPanel();
+            this.TileShelf = new System.Windows.Forms.FlowLayoutPanel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,16 +47,16 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ObjectPane
+            // TileShelf
             // 
-            this.ObjectPane.AutoScroll = true;
-            this.ObjectPane.BackColor = System.Drawing.SystemColors.Control;
-            this.ObjectPane.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ObjectPane.Location = new System.Drawing.Point(1280, 32);
-            this.ObjectPane.Margin = new System.Windows.Forms.Padding(0);
-            this.ObjectPane.Name = "ObjectPane";
-            this.ObjectPane.Size = new System.Drawing.Size(320, 768);
-            this.ObjectPane.TabIndex = 2;
+            this.TileShelf.AutoScroll = true;
+            this.TileShelf.BackColor = System.Drawing.SystemColors.Control;
+            this.TileShelf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TileShelf.Location = new System.Drawing.Point(1280, 32);
+            this.TileShelf.Margin = new System.Windows.Forms.Padding(0);
+            this.TileShelf.Name = "TileShelf";
+            this.TileShelf.Size = new System.Drawing.Size(320, 768);
+            this.TileShelf.TabIndex = 2;
             // 
             // fileToolStripMenuItem
             // 
@@ -145,7 +145,7 @@
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
@@ -155,7 +155,7 @@
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.redoToolStripMenuItem.Text = "Redo";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
@@ -206,7 +206,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1600, 800);
             this.Controls.Add(this.LevelPane);
-            this.Controls.Add(this.ObjectPane);
+            this.Controls.Add(this.TileShelf);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -223,7 +223,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.FlowLayoutPanel ObjectPane;
+        private System.Windows.Forms.FlowLayoutPanel TileShelf;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;

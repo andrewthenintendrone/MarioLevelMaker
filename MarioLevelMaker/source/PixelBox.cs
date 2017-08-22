@@ -8,18 +8,18 @@ using System.Windows.Forms;
 
 namespace MarioLevelMaker.source
 {
-    public class PixelBox : PictureBox
+    public class Tile : PictureBox
     {
         const int borderWidth = 2;
         public int tileID = 0;
         private int tempID = 0;
 
-        public PixelBox()
+        public Tile()
         {
 
         }
 
-        public PixelBox(int x, int y)
+        public Tile(int x, int y)
         {
             this.Name = "gridSquare_" + x.ToString() + "_" + y.ToString();
             this.Size = new Size(64, 64);

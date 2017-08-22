@@ -51,6 +51,8 @@ namespace MarioLevelMaker.source
                 currentPixelBox.tileID = 0;
                 currentPixelBox.updateImage();
             }
+            this.level.actionQueue.Clear();
+            this.level.queuePos = -1;
             updateLevel();
         }
         
@@ -130,62 +132,38 @@ namespace MarioLevelMaker.source
             this.level.RedoAction();
         }
 
-        // handle keyboard shortcuts
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            // CTRL + N = new
-            if (keyData == (Keys.Control | Keys.N))
-            {
-                newToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // CTRL + O = Open
-            if (keyData == (Keys.Control | Keys.O))
-            {
-                openToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // CTRL + S = Save
-            if (keyData == (Keys.Control | Keys.S))
-            {
-                saveToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // CTRL + Shift + S = Save As
-            if (keyData == (Keys.Control | Keys.Shift | Keys.S))
-            {
-                saveAsToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // CTRL + T = Take Screenshot
-            if (keyData == (Keys.Control | Keys.T))
-            {
-                takeScreenshotToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // CTRL + Z = Undo
-            if (keyData == (Keys.Control | Keys.Z))
-            {
-                undoToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // CTRL + Y = Redo
-            if (keyData == (Keys.Control | Keys.Y))
-            {
-                redoToolStripMenuItem_Click(this, EventArgs.Empty);
-                return true;
-            }
-            // ESC = Exit
-            if (keyData == (Keys.Escape))
-            {
-                Application.Exit();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
         Level level = new Level();
         PixelBox[] shelf = new PixelBox[PixelBox.TileNames.Length];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
+
+        // adjust to size
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            this.ObjectPane.Size = new Size(this.ClientSize.Width - 1280, this.ClientSize.Height);
+        }
+
+        // draw gridLines on the level pane
+        public void LevelPane_Paint(object sender, PaintEventArgs e)
+        {
+            Pen myPen = new Pen(Color.FromArgb(255, 50, 97, 168), 2);
+            for (int y = 0; y < Level.LevelHeight * 64; y += 64)
+            {
+                e.Graphics.DrawLine(myPen, new Point(0, y), new Point(Level.LevelWidth * 64, y));
+            }
+            for (int x = 0; x < Level.LevelWidth * 64; x += 64)
+            {
+                e.Graphics.DrawLine(myPen, new Point(x, 0), new Point(x, Level.LevelHeight * 64));
+            }
+            base.OnPaint(e);
+        }
+
+        // toggle grid display
+        private void displayGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(PixelBox currentTile in this.level.tiles)
+            {
+                currentTile.toggleGrid();
+            }
+        }
     }
 }

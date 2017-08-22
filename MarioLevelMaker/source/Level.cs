@@ -79,12 +79,14 @@ namespace MarioLevelMaker.source
                 {
                     int[] deserializedTileIDs = new int[tiles.Length];
                     deserializedTileIDs = (int[])mySerializer.Deserialize(stream);
-                    for(int i = 0; i < tiles.Length; i++)
+                    this.filePath = dialog.FileName;
+                    for (int i = 0; i < tiles.Length; i++)
                     {
                         tiles[i].tileID = deserializedTileIDs[i];
                         tiles[i].updateImage();
-                        this.filePath = dialog.FileName;
                     }
+                    this.actionQueue.Clear();
+                    this.queuePos = -1;
                 }
             }
         }
@@ -108,24 +110,30 @@ namespace MarioLevelMaker.source
         // undoes a change to the level
         public void UndoAction()
         {
-            actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].previousState;
-            actionQueue[queuePos].pixelBox.updateImage();
-            queuePos--;
-            if (queuePos < 0)
+            if(actionQueue.Count > 0)
             {
-                queuePos = 0;
+                actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].previousState;
+                actionQueue[queuePos].pixelBox.updateImage();
+                queuePos--;
+                if (queuePos < 0)
+                {
+                    queuePos = 0;
+                }
             }
         }
 
         // redoes a change to the level
         public void RedoAction()
         {
-            actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].currentState;
-            actionQueue[queuePos].pixelBox.updateImage();
-            queuePos++;
-            if (queuePos > actionQueue.Count - 1)
+            if(actionQueue.Count > 0)
             {
-                queuePos = actionQueue.Count - 1;
+                queuePos++;
+                if (queuePos > actionQueue.Count - 1)
+                {
+                    queuePos = actionQueue.Count - 1;
+                }
+                actionQueue[queuePos].pixelBox.tileID = actionQueue[queuePos].currentState;
+                actionQueue[queuePos].pixelBox.updateImage();
             }
         }
 

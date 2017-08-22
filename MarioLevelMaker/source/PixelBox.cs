@@ -10,8 +10,9 @@ namespace MarioLevelMaker.source
 {
     public class PixelBox : PictureBox
     {
+        const int borderWidth = 2;
         public int tileID = 0;
-        private int tempID = -1;
+        private int tempID = 0;
 
         public PixelBox()
         {
@@ -34,12 +35,28 @@ namespace MarioLevelMaker.source
 
         public void PixelBox_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetData(typeof(int)) != null)
+            if (e.Data.GetDataPresent(typeof(int)))
             {
-                this.tempID = this.tileID;
-                this.tileID = ((int)e.Data.GetData(typeof(int)));
+                tempID = tileID;
+                tileID = ((int)e.Data.GetData(typeof(int)));
                 updateImage();
                 e.Effect = DragDropEffects.Copy;
+
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    if ((int)e.Data.GetData(typeof(int)) != tempID)
+                    {
+                        if (level.queuePos < level.actionQueue.Count - 1)
+                        {
+                            level.actionQueue.RemoveRange(level.queuePos + 1, level.actionQueue.Count - level.queuePos - 1);
+                        }
+                        this.tileID = (int)e.Data.GetData(typeof(int));
+                        level.actionQueue.Add(new Action(this, this.tempID, this.tileID));
+                        level.queuePos++;
+                        this.tempID = this.tileID;
+                        updateImage();
+                    }
+                }
             }
             else
             {
@@ -59,21 +76,30 @@ namespace MarioLevelMaker.source
 
         public void PixelBox_DragDrop(object sender, DragEventArgs e)
         {
-            if (level.queuePos < level.actionQueue.Count - 1)
+            if((int)e.Data.GetData(typeof(int)) != tempID)
             {
-                level.actionQueue.RemoveRange(level.queuePos + 1, level.actionQueue.Count - level.queuePos - 1);
+                if (level.queuePos < level.actionQueue.Count - 1)
+                {
+                    level.actionQueue.RemoveRange(level.queuePos + 1, level.actionQueue.Count - level.queuePos - 1);
+                }
+                this.tileID = (int)e.Data.GetData(typeof(int));
+                level.actionQueue.Add(new Action(this, this.tempID, this.tileID));
+                level.queuePos++;
+                this.tempID = this.tileID;
+                updateImage();
             }
-            this.tileID = (int)e.Data.GetData(typeof(int));
-            level.actionQueue.Add(new Action(this, this.tempID, this.tileID));
-            level.queuePos++;
-            this.tempID = this.tileID;
-            updateImage();
         }
 
-        protected override void OnPaint(PaintEventArgs pe)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            pe.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            base.OnPaint(pe);
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            base.OnPaint(e);
+        }
+
+        // turns grid on and off
+        public void toggleGrid()
+        {
+            BorderStyle = (BorderStyle == BorderStyle.None ? BorderStyle.Fixed3D : BorderStyle.None);
         }
 
         public void updateImage()

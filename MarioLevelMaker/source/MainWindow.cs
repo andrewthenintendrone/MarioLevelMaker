@@ -95,8 +95,6 @@ namespace MarioLevelMaker.source
         // save a screenshot
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Bitmap screenshot = new Bitmap(level.levelWidth * 64, level.levelHeight * 64);
-            this.LevelPane.DrawToBitmap(screenshot, this.LevelPane.ClientRectangle);
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "BMP (*.bmp)|*.bmp|GIF (*.gif)|*.gif|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png|All files (*.*)|*.*";
             dialog.FilterIndex = 4;
@@ -104,6 +102,23 @@ namespace MarioLevelMaker.source
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
+                Bitmap screenshot = new Bitmap(level.levelWidth * 64, level.levelHeight * 64);
+                using (Graphics graphics = Graphics.FromImage(screenshot))
+                {
+                    using (SolidBrush brush = new SolidBrush(Color.FromArgb(147, 187, 236)))
+                    {
+                        graphics.FillRectangle(brush, 0, 0, screenshot.Width, screenshot.Height);
+                    }
+                    for(int x = 0; x < level.levelWidth; x++)
+                    {
+                        for (int y = 0; y < level.levelHeight; y++)
+                        {
+                            Bitmap currentTileGraphic = level.tileGraphics[level.tiles[y * level.levelWidth + x].tileID];
+                            Rectangle currentRectangle = new Rectangle(x * 64, y * 64, 64, 64);
+                            graphics.DrawImage(currentTileGraphic, currentRectangle);
+                        }
+                    }
+                }
                 using (Stream stream = dialog.OpenFile())
                 {
                     screenshot.Save(stream, imageFormatOrder[dialog.FilterIndex]);
@@ -159,21 +174,6 @@ namespace MarioLevelMaker.source
         private void MainWindow_Resize(object sender, EventArgs e)
         {
             this.TileShelf.Size = new Size(this.ClientSize.Width - 1280, 768);
-        }
-
-        // draw gridLines on the level pane
-        public void LevelPane_Paint(object sender, PaintEventArgs e)
-        {
-            Pen myPen = new Pen(Color.FromArgb(255, 50, 97, 168), 2);
-            for (int y = 0; y < level.levelHeight * 64; y += 64)
-            {
-                e.Graphics.DrawLine(myPen, new Point(0, y), new Point(level.levelWidth * 64, y));
-            }
-            for (int x = 0; x < level.levelWidth * 64; x += 64)
-            {
-                e.Graphics.DrawLine(myPen, new Point(x, 0), new Point(x, level.levelHeight * 64));
-            }
-            base.OnPaint(e);
         }
 
         // toggle grid display

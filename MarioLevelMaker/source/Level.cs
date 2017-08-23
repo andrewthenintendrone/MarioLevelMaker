@@ -91,7 +91,6 @@ namespace MarioLevelMaker.source
             }
         }
 
-
         public string filePath = "";
         public bool binaryFileMode = true;
         public int levelWidth;

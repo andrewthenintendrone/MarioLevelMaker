@@ -191,13 +191,13 @@
             // 
             // LevelPane
             // 
+            this.LevelPane.AutoScroll = true;
             this.LevelPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(187)))), ((int)(((byte)(236)))));
             this.LevelPane.Location = new System.Drawing.Point(0, 32);
             this.LevelPane.Margin = new System.Windows.Forms.Padding(0);
             this.LevelPane.Name = "LevelPane";
             this.LevelPane.Size = new System.Drawing.Size(1280, 768);
             this.LevelPane.TabIndex = 3;
-            this.LevelPane.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelPane_Paint);
             // 
             // MainWindow
             // 

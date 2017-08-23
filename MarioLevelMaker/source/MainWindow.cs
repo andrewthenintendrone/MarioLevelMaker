@@ -90,7 +90,7 @@ namespace MarioLevelMaker.source
             // update level just in case
             updateLevel();
 
-            Bitmap screenshot = new Bitmap(Level.LevelWidth * 64, Level.LevelHeight * 64);
+            Bitmap screenshot = new Bitmap(level.levelWidth * 64, level.levelHeight * 64);
             this.LevelPane.DrawToBitmap(screenshot, this.LevelPane.ClientRectangle);
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "BMP (*.bmp)|*.bmp|GIF (*.gif)|*.gif|JPEG (*.jpg)|*.jpg|PNG (*.png)|*.png|All files (*.*)|*.*";
@@ -153,13 +153,13 @@ namespace MarioLevelMaker.source
         public void LevelPane_Paint(object sender, PaintEventArgs e)
         {
             Pen myPen = new Pen(Color.FromArgb(255, 50, 97, 168), 2);
-            for (int y = 0; y < Level.LevelHeight * 64; y += 64)
+            for (int y = 0; y < level.levelHeight * 64; y += 64)
             {
-                e.Graphics.DrawLine(myPen, new Point(0, y), new Point(Level.LevelWidth * 64, y));
+                e.Graphics.DrawLine(myPen, new Point(0, y), new Point(level.levelWidth * 64, y));
             }
-            for (int x = 0; x < Level.LevelWidth * 64; x += 64)
+            for (int x = 0; x < level.levelWidth * 64; x += 64)
             {
-                e.Graphics.DrawLine(myPen, new Point(x, 0), new Point(x, Level.LevelHeight * 64));
+                e.Graphics.DrawLine(myPen, new Point(x, 0), new Point(x, level.levelHeight * 64));
             }
             base.OnPaint(e);
         }

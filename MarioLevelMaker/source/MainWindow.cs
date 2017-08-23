@@ -52,23 +52,31 @@ namespace MarioLevelMaker.source
         // create new level
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            level.filePath = "";
-            foreach(Tile currentPixelBox in level.tiles)
+            using (NewFileDialog dialog = new NewFileDialog())
             {
-                currentPixelBox.tileID = 0;
-                currentPixelBox.updateImage();
+                dialog.ShowDialog();
+                if (dialog.DialogResult == DialogResult.OK)
+                {
+                    createNewLevel(dialog.width, dialog.height);
+                }
             }
-            this.level.actionQueue.Clear();
-            this.level.queuePos = -1;
-            updateLevel();
         }
         
-        // updates all pixel boxes to match the level
-        // displays the level file path in the title bar
-        public void updateLevel()
+        private void createNewLevel(int width, int height)
         {
-            // update title bar with file name
-            if(level.filePath != "")
+            this.LevelPane.Controls.Clear();
+            this.level = new Level(width, height);
+            foreach (Tile currentTile in level.tiles)
+            {
+                this.LevelPane.Controls.Add(currentTile);
+            }
+        }
+
+        // updates the windows title bar with the name of the current file
+        public void updateTitleBar()
+        {
+            // only include the dash if there is a file
+            if (level.filePath != "")
             {
                 this.Text = "MarioLevelMaker - " + level.filePath;
             }
@@ -87,9 +95,6 @@ namespace MarioLevelMaker.source
         // save a screenshot
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // update level just in case
-            updateLevel();
-
             Bitmap screenshot = new Bitmap(level.levelWidth * 64, level.levelHeight * 64);
             this.LevelPane.DrawToBitmap(screenshot, this.LevelPane.ClientRectangle);
             SaveFileDialog dialog = new SaveFileDialog();
@@ -109,22 +114,29 @@ namespace MarioLevelMaker.source
         // save level
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            level.Serialize(false);
-            updateLevel();
+            if(level.filePath == "")
+            {
+                LevelSerializer.SaveLevelAs(level);
+            }
+            else
+            {
+                LevelSerializer.SaveLevel(level);
+            }
+            updateTitleBar();
         }
 
         // open level
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            level.Deserialize();
-            updateLevel();
+            LevelSerializer.Deserialize(level);
+            updateTitleBar();
         }
 
         // save level as
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            level.Serialize(true);
-            updateLevel();
+            LevelSerializer.SaveLevelAs(level);
+            updateTitleBar();
         }
 
         // undo
@@ -139,7 +151,7 @@ namespace MarioLevelMaker.source
             this.level.RedoAction();
         }
 
-        Level level = new Level();
+        Level level = new Level(20, 12);
         Tile[] shelf = new Tile[98];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
 

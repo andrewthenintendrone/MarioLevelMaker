@@ -73,6 +73,13 @@
     <Compile Include="source\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="source\NewFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="source\NewFileDialog.Designer.cs">
+      <DependentUpon>NewFileDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="source\LevelSerializer.cs" />
     <Compile Include="source\Tile.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -90,6 +97,9 @@
     </Compile>
     <EmbeddedResource Include="source\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="source\NewFileDialog.resx">
+      <DependentUpon>NewFileDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="source\Tile.resx">
       <DependentUpon>Tile.cs</DependentUpon>

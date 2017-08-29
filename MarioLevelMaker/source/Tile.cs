@@ -93,7 +93,7 @@ namespace MarioLevelMaker.source
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             base.OnPaint(e);
 
-            if(((MainWindow)Parent.Parent).gridState.Checked)
+            if(((MainWindow)Parent.Parent).gridState.Checked && this.Size.Width != 64)
             {
                 ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.FromArgb(255, 50, 97, 168), ButtonBorderStyle.Solid);
             }

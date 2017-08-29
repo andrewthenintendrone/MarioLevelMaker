@@ -10,20 +10,19 @@ namespace MarioLevelMaker.source
 {
     public class Tile : PictureBox
     {
-        const int borderWidth = 2;
         public int tileID = 0;
         private int tempID = 0;
 
         public Tile()
         {
-
+            
         }
 
         public Tile(int x, int y)
         {
             this.Name = "gridSquare_" + x.ToString() + "_" + y.ToString();
-            this.Size = new Size(64, 64);
-            this.Location = new Point(x * 64, y * 64);
+            this.Size = new Size(32, 32);
+            this.Location = new Point(x * 32, y * 32);
             this.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
@@ -93,18 +92,16 @@ namespace MarioLevelMaker.source
         {
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             base.OnPaint(e);
-        }
 
-        // turns grid on and off
-        public void toggleGrid()
-        {
-            BorderStyle = (BorderStyle == BorderStyle.None ? BorderStyle.Fixed3D : BorderStyle.None);
+            if(((MainWindow)Parent.Parent).gridState.Checked)
+            {
+                ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.FromArgb(255, 50, 97, 168), ButtonBorderStyle.Solid);
+            }
         }
 
         public void updateImage()
         {
             this.Image = level.tileGraphics[tileID];
-            Refresh();
         }
 
         public Level level;

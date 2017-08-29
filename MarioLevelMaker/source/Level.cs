@@ -14,11 +14,8 @@ namespace MarioLevelMaker.source
     public class Level
     {
         // default constructor sets all tile ids to 0
-        public Level(int width, int height)
+        public Level()
         {
-            levelWidth = width;
-            levelHeight = height;
-
             // obtain graphics from spritesheet
             Bitmap blankBitmap = new Bitmap(64, 64);
             tileGraphics.Add(blankBitmap);
@@ -31,9 +28,9 @@ namespace MarioLevelMaker.source
             }
 
             // create tiles
-            for (int x = 0; x < levelWidth; x++)
+            for (int y = 0; y < levelHeight; y++)
             {
-                for (int y = 0; y < levelHeight; y++)
+                for (int x = 0; x < levelWidth; x++)
                 {
                     Tile newTile = new Tile(x, y);
                     ((Control)newTile).AllowDrop = true;
@@ -52,11 +49,9 @@ namespace MarioLevelMaker.source
         // copys data from another level to this one
         public void copyData(List<int> data)
         {
-            levelHeight = data[0];
-            levelWidth = data[1];
             for(int i = 0; i < levelHeight * levelWidth; i++)
             {
-                tiles[i].tileID = data[2 + i];
+                tiles[i].tileID = data[i];
                 tiles[i].updateImage();
             }
         }
@@ -93,8 +88,8 @@ namespace MarioLevelMaker.source
 
         public string filePath = "";
         public bool binaryFileMode = true;
-        public int levelWidth;
-        public int levelHeight;
+        public int levelWidth = 40;
+        public int levelHeight = 24;
         public List<Bitmap> tileGraphics = new List<Bitmap>();
         public List<Tile> tiles = new List<Tile>();
         public int queuePos = -1;

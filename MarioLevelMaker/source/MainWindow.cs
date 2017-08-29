@@ -20,6 +20,7 @@ namespace MarioLevelMaker.source
         public MainWindow()
         {
             InitializeComponent();
+            gridState = displayGridToolStripMenuItem;
         }
 
         // set up
@@ -52,23 +53,12 @@ namespace MarioLevelMaker.source
         // create new level
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (NewFileDialog dialog = new NewFileDialog())
+            level.filePath = "";
+            updateTitleBar();
+            foreach(Tile currentTile in level.tiles)
             {
-                dialog.ShowDialog();
-                if (dialog.DialogResult == DialogResult.OK)
-                {
-                    createNewLevel(dialog.width, dialog.height);
-                }
-            }
-        }
-        
-        private void createNewLevel(int width, int height)
-        {
-            this.LevelPane.Controls.Clear();
-            this.level = new Level(width, height);
-            foreach (Tile currentTile in level.tiles)
-            {
-                this.LevelPane.Controls.Add(currentTile);
+                currentTile.tileID = 0;
+                currentTile.updateImage();
             }
         }
 
@@ -102,20 +92,25 @@ namespace MarioLevelMaker.source
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Bitmap screenshot = new Bitmap(level.levelWidth * 64, level.levelHeight * 64);
+                Bitmap screenshot = new Bitmap(level.levelWidth * 32, level.levelHeight * 32);
                 using (Graphics graphics = Graphics.FromImage(screenshot))
                 {
                     using (SolidBrush brush = new SolidBrush(Color.FromArgb(147, 187, 236)))
                     {
                         graphics.FillRectangle(brush, 0, 0, screenshot.Width, screenshot.Height);
                     }
-                    for(int x = 0; x < level.levelWidth; x++)
+                    for(int y = 0; y < level.levelHeight; y++)
                     {
-                        for (int y = 0; y < level.levelHeight; y++)
+                        for (int x = 0; x < level.levelWidth; x++)
                         {
-                            Bitmap currentTileGraphic = level.tileGraphics[level.tiles[y * level.levelWidth + x].tileID];
-                            Rectangle currentRectangle = new Rectangle(x * 64, y * 64, 64, 64);
+                            int tileIndex = y * level.levelWidth + x;
+                            Bitmap currentTileGraphic = level.tileGraphics[level.tiles[tileIndex].tileID];
+                            Rectangle currentRectangle = new Rectangle(x * 32, y * 32, 32, 32);
                             graphics.DrawImage(currentTileGraphic, currentRectangle);
+                            if(gridState.Checked)
+                            {
+                                ControlPaint.DrawBorder(graphics, currentRectangle, Color.FromArgb(255, 50, 97, 168), ButtonBorderStyle.Solid);
+                            }
                         }
                     }
                 }
@@ -143,7 +138,7 @@ namespace MarioLevelMaker.source
         // open level
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LevelSerializer.Deserialize(level);
+            LevelSerializer.LoadLevel(level);
             updateTitleBar();
         }
 
@@ -166,10 +161,6 @@ namespace MarioLevelMaker.source
             this.level.RedoAction();
         }
 
-        Level level = new Level(20, 12);
-        Tile[] shelf = new Tile[98];
-        ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
-
         // adjust to size
         private void MainWindow_Resize(object sender, EventArgs e)
         {
@@ -181,8 +172,14 @@ namespace MarioLevelMaker.source
         {
             foreach(Tile currentTile in this.level.tiles)
             {
-                currentTile.toggleGrid();
+                currentTile.Invalidate();
             }
         }
+
+        Level level = new Level();
+        Tile[] shelf = new Tile[98];
+        ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
+
+        public ToolStripMenuItem gridState;
     }
 }

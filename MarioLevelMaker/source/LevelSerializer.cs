@@ -16,12 +16,10 @@ namespace MarioLevelMaker.source
         public static void SaveLevelAs(Level level)
         {
             // store level size and tile IDs in a new list
-            List<int> sizeAndData = new List<int>();
-            sizeAndData.Add(level.levelWidth);
-            sizeAndData.Add(level.levelHeight);
+            List<int> TileIDs = new List<int>();
             foreach (Tile currentTile in level.tiles)
             {
-                sizeAndData.Add(currentTile.tileID);
+                TileIDs.Add(currentTile.tileID);
             }
 
             // open a file picker
@@ -43,14 +41,14 @@ namespace MarioLevelMaker.source
                     {
                         level.binaryFileMode = true;
                         BinaryFormatter binaryFormatter = new BinaryFormatter();
-                        binaryFormatter.Serialize(stream, sizeAndData);
+                        binaryFormatter.Serialize(stream, TileIDs);
                     }
                     // write .xml file format
                     else if (dialog.FilterIndex == 2)
                     {
                         level.binaryFileMode = false;
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(int[]));
-                        xmlSerializer.Serialize(stream, sizeAndData);
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<int>));
+                        xmlSerializer.Serialize(stream, TileIDs);
                     }
                     // close the level file
                     stream.Close();
@@ -62,12 +60,10 @@ namespace MarioLevelMaker.source
         public static void SaveLevel(Level level)
         {
             // store level size and tile IDs in a new list
-            List<int> sizeAndData = new List<int>();
-            sizeAndData.Add(level.levelWidth);
-            sizeAndData.Add(level.levelHeight);
+            List<int> tileIDs = new List<int>();
             foreach (Tile currentTile in level.tiles)
             {
-                sizeAndData.Add(currentTile.tileID);
+                tileIDs.Add(currentTile.tileID);
             }
 
             // open the level file
@@ -77,12 +73,12 @@ namespace MarioLevelMaker.source
                 if (level.binaryFileMode)
                 {
                     BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.Serialize(stream, sizeAndData);
+                    binaryFormatter.Serialize(stream, tileIDs);
                 }
                 else
                 {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(int[]));
-                    xmlSerializer.Serialize(stream, sizeAndData);
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<int>));
+                    xmlSerializer.Serialize(stream, tileIDs);
                 }
                 // close the level file
                 stream.Close();
@@ -90,10 +86,10 @@ namespace MarioLevelMaker.source
         }
 
         // loads the level and
-        public static void Deserialize(Level level)
+        public static void LoadLevel(Level level)
         {
             // create new list to store level size and tile data
-            List<int> sizeAndData = new List<int>();
+            List<int> tileIDs = new List<int>();
 
             // open a file picker
             OpenFileDialog dialog = new OpenFileDialog();
@@ -107,16 +103,26 @@ namespace MarioLevelMaker.source
                 // open the level file
                 using (Stream stream = dialog.OpenFile())
                 {
+                    level.filePath = dialog.FileName;
+
                     // read differently based on the file type
                     if (dialog.FilterIndex == 1)
                     {
+                        level.binaryFileMode = true;
                         BinaryFormatter binaryFormatter = new BinaryFormatter();
-                        sizeAndData = (List<int>)binaryFormatter.Deserialize(stream);
+                        tileIDs = (List<int>)binaryFormatter.Deserialize(stream);
                     }
                     else if (dialog.FilterIndex == 2)
                     {
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(int[]));
-                        sizeAndData = (List<int>)xmlSerializer.Deserialize(stream);
+                        level.binaryFileMode = false;
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<int>));
+                        tileIDs = (List<int>)xmlSerializer.Deserialize(stream);
+                    }
+
+                    for(int i = 0; i < level.tiles.Count; i++)
+                    {
+                        level.tiles[i].tileID = tileIDs[i];
+                        level.tiles[i].updateImage();
                     }
                     // close the file
                     stream.Close();

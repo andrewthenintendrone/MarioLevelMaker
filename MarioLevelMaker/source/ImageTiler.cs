@@ -12,8 +12,8 @@ namespace MarioLevelMaker.source
     {
         public static Bitmap tileFromSpriteSheet(int x, int y)
         {
-            int tileSizeX = 32;
-            int tileSizeY = 32;
+            int tileSizeX = 64;
+            int tileSizeY = 64;
             Bitmap src = (Bitmap)Properties.Resources.ResourceManager.GetObject("mariotiles_final");
             Bitmap tile = src.Clone(new Rectangle(tileSizeX * x, tileSizeY * y, tileSizeX, tileSizeY), System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 

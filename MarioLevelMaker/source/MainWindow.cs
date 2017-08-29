@@ -29,7 +29,6 @@ namespace MarioLevelMaker.source
             // set the object pane as the active control to enable scrolling
             this.ActiveControl = this.TileShelf;
 
-
             foreach(Tile currentTile in level.tiles)
             {
                 this.LevelPane.Controls.Add(currentTile);

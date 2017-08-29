@@ -38,7 +38,7 @@ namespace MarioLevelMaker.source
                     newTile.DragEnter += new DragEventHandler(newTile.PixelBox_DragEnter);
                     newTile.DragLeave += new EventHandler(newTile.PixelBox_DragLeave);
                     newTile.DragDrop += new DragEventHandler(newTile.PixelBox_DragDrop);
-                    newTile.tileID = 1;
+                    newTile.tileID = 0;
                     newTile.level = this;
                     newTile.updateImage();
                     tiles.Add(newTile);

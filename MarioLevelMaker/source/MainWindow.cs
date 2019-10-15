@@ -178,7 +178,25 @@ namespace MarioLevelMaker.source
         Level level = new Level();
         Tile[] shelf = new Tile[98];
         ImageFormat[] imageFormatOrder = new ImageFormat[5] { ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png, ImageFormat.Png };
+        System.Media.SoundPlayer soundPlayer = new System.Media.SoundPlayer();
 
         public ToolStripMenuItem gridState;
+
+        private void enableBirdsongToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (enableBirdsongToolStripMenuItem.Checked)
+            {
+                if (soundPlayer.Stream == null)
+                {
+                    soundPlayer.Stream = Properties.Resources.Bird_song;
+                }
+
+                soundPlayer.PlayLooping();
+            }
+            else
+            {
+                soundPlayer.Stop();
+            }
+        }
     }
 }

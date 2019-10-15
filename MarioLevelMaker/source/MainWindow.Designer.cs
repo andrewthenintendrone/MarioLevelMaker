@@ -43,9 +43,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.birdsongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LevelPane = new System.Windows.Forms.Panel();
-            this.enableBirdsongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +77,7 @@
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.newToolStripMenuItem.Text = "New...";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -89,7 +87,7 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -99,7 +97,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -110,7 +108,7 @@
             this.saveAsToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -120,7 +118,7 @@
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
             this.takeScreenshotToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.takeScreenshotToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot";
             this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
             // 
@@ -128,7 +126,7 @@
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -168,8 +166,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.birdsongToolStripMenuItem});
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1600, 32);
@@ -179,8 +176,7 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayGridToolStripMenuItem,
-            this.enableBirdsongToolStripMenuItem});
+            this.displayGridToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 28);
             this.viewToolStripMenuItem.Text = "View";
@@ -189,7 +185,7 @@
             // 
             this.displayGridToolStripMenuItem.CheckOnClick = true;
             this.displayGridToolStripMenuItem.Name = "displayGridToolStripMenuItem";
-            this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.displayGridToolStripMenuItem.Text = "Display Grid";
             this.displayGridToolStripMenuItem.Click += new System.EventHandler(this.displayGridToolStripMenuItem_Click);
             // 
@@ -202,14 +198,6 @@
             this.LevelPane.Name = "LevelPane";
             this.LevelPane.Size = new System.Drawing.Size(1280, 768);
             this.LevelPane.TabIndex = 3;
-            // 
-            // enableBirdsongToolStripMenuItem
-            // 
-            this.enableBirdsongToolStripMenuItem.CheckOnClick = true;
-            this.enableBirdsongToolStripMenuItem.Name = "enableBirdsongToolStripMenuItem";
-            this.enableBirdsongToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.enableBirdsongToolStripMenuItem.Text = "Enable Birdsong";
-            this.enableBirdsongToolStripMenuItem.Click += new System.EventHandler(this.enableBirdsongToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -250,7 +238,5 @@
         private System.Windows.Forms.Panel LevelPane;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayGridToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem birdsongToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableBirdsongToolStripMenuItem;
     }
 }
